@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>SHFT</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            background: black;
+            display: block;
+            margin: 0 auto;
+            border: 3px solid #eeeeee;
+            clip-path: polygon(
+                0% 10%,     /* top left */
+                10% 0%,     /* top left */
+                90% 0%,    /* top right */
+                100% 10%,   /* top right */
+                100% 90%,  /* bottom right */
+                90% 100%,  /* bottom right */
+                10% 100%,   /* bottom left */
+                0% 90%      /* bottom left */
+            );
+        }
+    </style>
+</head>
+
+<body>
+    <h1>S H F T</h1>
+    <canvas id="Canvas" width="500" height="500"></canvas>
+
+    <script>
+
+        var canvas = document.getElementById("Canvas");
+        var ctx = canvas.getContext("2d");
+
+        var gravityDirect = 0;
+        var gravX = 0.0;
+        var gravY = 1.0;
+        var score = 0;
+        var rightPressed = 0;
+        var leftPressed = 0;
+
+
+
+        setInterval(draw, 15);
+
+
+	// JavaScript code goes here
+    </script>
+
+</body>
+
+</html>
