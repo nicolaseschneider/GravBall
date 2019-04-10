@@ -1,4 +1,4 @@
-var Player = require('./GameObjects/player')
+import Player from './GameObjects/player'
 var gravityDirect = 0;
 var gravX = 0.0;
 var gravY = 1.0;

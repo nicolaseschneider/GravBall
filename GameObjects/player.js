@@ -1,6 +1,6 @@
 //initial variables
 
-module.exports = class Player {
+export default class Player {
     constructor(ctx){
         //
         //visual context
