@@ -1,15 +1,16 @@
 var path = require('path');
 
 module.exports = {
+    context: __dirname,
     entry: "./sHFt.js",
     output: {
-        path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
+        path: path.resolve(__dirname),
         filename: "bundle.js"
     },
     module: {
         rules: [
             {
-                test: [/\.jsx?$/],
+                test: [/\.js?$/],
                 exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
