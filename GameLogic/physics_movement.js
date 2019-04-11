@@ -26,14 +26,14 @@ export default function(grav){
     //collision detection
    
     
-    if(this.x + this.hsp <= 50 || this.x + this.hsp >= 529){
-        while (this.x + Math.sign(this.hsp) <= 50 && this.x + Math.sign(this.hsp) >= 529){
+    if(this.x + this.hsp <= 50 || this.x + this.hsp >= 530){
+        while (this.x + Math.sign(this.hsp) < 50 && this.x + Math.sign(this.hsp) > 530){
             this.x += Math.sign(this.hsp)
         }
         if (this.x < 50){
             this.x = 50
-        } else if (this.x > 529){
-            this.x = 529
+        } else if (this.x > 530){
+            this.x = 530
         }
         this.hsp = -this.hsp/4.0;
   

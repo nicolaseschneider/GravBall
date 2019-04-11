@@ -1,5 +1,5 @@
 {
-  "name": "sHFt",
+  "name": "gAMe",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.4.0",
@@ -11,7 +11,7 @@
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",
-  "main": "sHFt.js",
+  "main": "gAMe.js",
   "directories": {
     "lib": "lib",
     "test": "test"
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NicolasESchneider/sHFt.git"
+    "url": "git+https://github.com/NicolasESchneider/gAMe.git"
   },
   "keywords": [],
   "author": "",

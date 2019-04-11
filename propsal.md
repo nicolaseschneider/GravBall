@@ -1,7 +1,7 @@
-## sHFt
+## gAMe
 
 ### Background
-sHFt is about going thinking fast and moving faster. The goal is simple. Collect as many boxes as you can without dying to try and get the high score while utilizing an arsenal of different weapons to dispatch the neverending horde of enemies trying to stop you. normal platformers have simple movement controls. Left Right and jump. sHFt expands on that basic formula without adding too much complexity. You can still move left and right and jump, but you can also rotate the global pull of gravity 90 degrees with the push of a button. I could type on and on about what the game should look and play like. But why bother reading when you could just play it.
+gAMe is about going thinking fast and moving faster. The goal is simple. Collect as many boxes as you can without dying to try and get the high score while utilizing an arsenal of different weapons to dispatch the neverending horde of enemies trying to stop you. normal platformers have simple movement controls. Left Right and jump. gAMe expands on that basic formula without adding too much complexity. You can still move left and right and jump, but you can also rotate the global pull of gravity 90 degrees with the push of a button. I could type on and on about what the game should look and play like. But why bother reading when you could just play it.
 
 ### Functionality and MVPs
 
