@@ -26,27 +26,27 @@ export default function(grav){
     //collision detection
    
     
-    if(this.x + this.hsp <= 0 || this.x + this.hsp >= 479){
-        while (this.x + Math.sign(this.hsp) <= 0 && this.x + Math.sign(this.hsp) >= 479){
+    if(this.x + this.hsp <= 50 || this.x + this.hsp >= 529){
+        while (this.x + Math.sign(this.hsp) <= 50 && this.x + Math.sign(this.hsp) >= 529){
             this.x += Math.sign(this.hsp)
         }
-        if (this.x < 0){
-            this.x = 0
-        } else if (this.x > 479){
-            this.x = 479
+        if (this.x < 50){
+            this.x = 50
+        } else if (this.x > 529){
+            this.x = 529
         }
         this.hsp = -this.hsp/4.0;
   
     }
 
-    if (this.y + this.vsp <= 0 || this.y + this.vsp >= 480) {
-        while (this.y + Math.sign(this.vsp) <= 0 && this.y + Math.sign(this.vsp) >= 480) {
+    if (this.y + this.vsp <= 50 || this.y + this.vsp >= 530) {
+        while (this.y + Math.sign(this.vsp) <= 0 && this.y + Math.sign(this.vsp) >= 530) {
             this.y += Math.sign(this.vsp)
         }
-        if (this.y < 0) {
-            this.y = 0
-        } else if (this.y > 480) {
-            this.y = 480
+        if (this.y < 50) {
+            this.y = 50
+        } else if (this.y > 530) {
+            this.y = 530
         }
         this.vsp = -this.vsp / 4.0;
 

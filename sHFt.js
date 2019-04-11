@@ -6,12 +6,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
     var canvas = document.getElementById("Canvas");
     var ctx = canvas.getContext("2d");
     let game = new Game(canvas, ctx);
-    window.gravityDirect = 0
 
-    setInterval( () => {
+    const playGame = setInterval( () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.draw()
-
     },15)
 
 })

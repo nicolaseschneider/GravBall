@@ -9,12 +9,17 @@
             padding: 0;
             margin: 0;
         }
+        h1{
+            text-align: center;
+            margin:0 auto;
+            margin-bottom: 25px;
+        }
 
         canvas {
-            background: black;
+            background: white;
             display: block;
             margin: 0 auto;
-            border: 3px solid #eeeeee;
+            border: 3px solid black;
             clip-path: polygon(
                 0% 5%,     /* top left */
                 5% 0%,     /* top left */
@@ -31,7 +36,7 @@
 
 <body>
     <h1>sHFt</h1>
-    <canvas id="Canvas" width="500" height="500"></canvas>
+    <canvas id="Canvas" width="600" height="600"></canvas>
     <script src='bundle.js'></script>
     <script>
         console.log("hey")

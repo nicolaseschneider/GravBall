@@ -12,14 +12,16 @@ export default class Player {
         this.moveSpeed = 2;
         this.jumpSpeed = 8;
         this.hp = 1;
+        this.width = 20;
+        this.height = 20;
         //
         //variables
         this.keyRight = 0;
         this.keyLeft = 0;
         this.hsp = 0;
         this.vsp = 0;
-        this.x = 30;
-        this.y = 30;
+        this.x = 75;
+        this.y = 75;
         this.keyJump = 0;
         //
         //abilities
@@ -34,10 +36,10 @@ export default class Player {
         this.move = (this.keyRight - this.keyLeft);
         movementPhysics.bind(this,grav)();
         
+        //Draw player at updated position
         this.ctx.beginPath();
-        this.ctx.rect(this.x, this.y, 20, 20)
-        this.ctx.fillStyle = "white";
-        this.ctx.fill();
+        this.ctx.fillStyle = "blue";
+        this.ctx.fillRect(this.x, this.y, 20, 20)
         this.ctx.closePath();
 
 
