@@ -1,4 +1,5 @@
-//initial variables
+import movementPhysics from '../GameLogic/physics_movement';
+
 
 export default class Player {
     constructor(ctx){
@@ -11,7 +12,6 @@ export default class Player {
         this.moveSpeed = 2;
         this.jumpSpeed = 8;
         this.hp = 1;
-        this.acceleration = 1;
         //
         //variables
         this.keyRight = 0;
@@ -20,19 +20,22 @@ export default class Player {
         this.vsp = 0;
         this.x = 30;
         this.y = 30;
+        this.keyJump = 0;
         //
         //abilities
-        this.canQ = true;
-        this.canE = true;
-        this.canS = true;
         this.canJump = true;
         //
         //
     }
 
-    draw(){
+    draw(grav){
+        //calculate movement
+
+        this.move = (this.keyRight - this.keyLeft);
+        movementPhysics.bind(this,grav)();
+        
         this.ctx.beginPath();
-        this.ctx.rect(30, 30, 20, 20)
+        this.ctx.rect(this.x, this.y, 20, 20)
         this.ctx.fillStyle = "white";
         this.ctx.fill();
         this.ctx.closePath();
