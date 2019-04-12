@@ -5,6 +5,7 @@ import { rotate } from '../GameLogic/canvas_rotation';
 
 export default class Game{
     constructor(canvas, ctx){
+
         this.canvas = canvas;
         this.ctx = ctx;
         this.width = canvas.width;
@@ -36,6 +37,7 @@ export default class Game{
         this.addListeners();
 
     }
+
     buildGrid(){
         let grid = new Array(this.cellsX);
         for (let i = 0; i < grid.length; i++){
@@ -46,15 +48,15 @@ export default class Game{
 
     placePlayerOnGrid(){
         //round to the nearest 20
-        let xCoord = Math.ceil((Math.round(this.player.x)) / 20) * 20
-        let yCoord = Math.ceil((Math.round(this.player.y)) / 20) * 20
+        let xCoord = Math.ceil((Math.round(this.player.x)-10) / 20) * 20
+        let yCoord = Math.ceil((Math.round(this.player.y)-10) / 20) * 20
         //convert from rounded number to array index
         let x = (xCoord / 20) - 1
         let y = (yCoord / 20) - 1
         //place on game grid, have player track its own position
         this.player.xcoord = x;
         this.player.ycoord = y;
-        this.grid[y][x] = (this.player);
+
     }
 
 
@@ -85,9 +87,15 @@ export default class Game{
         } else if (e.key == "Spacebar" || e.key == " "){
             this.player.keyJump = 1;
         } else if (e.key == "p" || e.key == "P") {
-            console.log(this.player.ycoord);
             console.log(this.player.xcoord);
+            console.log(this.player.ycoord);
             console.log(this.grid);
+        } else if (e.key == "5"){
+            var debug = () =>{
+                debugger
+                console.log("*screams internally*")
+            }
+            debug();
         }
         
     }
@@ -134,6 +142,7 @@ export default class Game{
         document.addEventListener("keydown", this.keyDownHandler)
         document.addEventListener("keyup", this.keyUpHandler)
     }
+    
     draw(){
         const grav = {x: this.gravx, y: this.gravy, direct: this.gravDirection};
         this.ctx.fillStyle = "black";

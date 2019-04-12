@@ -26,10 +26,10 @@ export const rotate= function (deg){
 const rotate90 = function (coef, interval) {
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.ctx.translate(this.width / 2, this.width / 2);
-    this.ctx.rotate(coef * 10 * Math.PI / 180);
+    this.ctx.rotate(coef * 15 * Math.PI / 180);
     this.ctx.translate(-this.width / 2, -this.width / 2);
     this.draw();
-    if (this.rotateStep >= 8) {
+    if (this.rotateStep >= 5) {
         this.rotateStep = 0;
         clearInterval(interval);
         this.canFlip = true;
@@ -42,10 +42,10 @@ const rotate90 = function (coef, interval) {
 const rotate180 = function (coef, interval) {
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.ctx.translate(this.width / 2, this.width / 2);
-    this.ctx.rotate(coef * 20 * Math.PI / 180);
+    this.ctx.rotate(coef * 15 * Math.PI / 180);
     this.ctx.translate(-this.width / 2, -this.width / 2);
     this.draw();
-    if (this.rotateStep >= 8) {
+    if (this.rotateStep >= 11) {
         this.rotateStep = 0;
         clearInterval(interval);
         this.canFlip = true;
