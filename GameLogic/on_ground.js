@@ -1,14 +1,14 @@
 export const onGround = function(grav){
     switch(grav.direct){
         case 0:
-            if (this.y + this.height + grav.y >= 550) {
+            if (this.y + this.height + grav.y >= 650    ) {
                 return true;
             } else {
                 return false;
             }
 
         case 1:
-            if (this.x + this.width + grav.x >= 550) {
+            if (this.x + this.width + grav.x >= 650 ) {
                 return true;
             } else {
                 return false;

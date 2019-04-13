@@ -3,23 +3,26 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>gAMe</title>
+    <title>Grav Ball</title>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet">
     <style>
         * {
             padding: 0;
             margin: 0;
+            font-family: 'Orbitron', sans-serif;
         }
         h1{
             text-align: center;
             margin:0 auto;
             margin-bottom: 25px;
+            margin-top: 25px;
         }
 
         canvas {
             background: white;
             display: block;
             margin: 0 auto;
-            border: 3px solid #efefef;
+            border: 3px solid black;
             clip-path: polygon(
                 0% 5%,     /* top left */
                 5% 0%,     /* top left */
@@ -35,8 +38,8 @@
 </head>
 
 <body>
-    <h1>gAMe</h1>
-    <canvas id="Canvas" width="600" height="600"></canvas>
+    <h1>Grav Ball</h1>
+    <canvas id="Canvas" width="700" height="700"></canvas>
     <script src='bundle.js'></script>
     <script>
         console.log("hey")

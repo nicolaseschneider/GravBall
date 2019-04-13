@@ -2,7 +2,10 @@ import Player from './player';
 import Wall from './wall';
 import {gravFlipLeft, gravFlipRight, gravFlipUp} from '../GameLogic/grav_flip';
 import { rotate } from '../GameLogic/canvas_rotation';
-
+import { collisionCheck, collisionBallCheck } from '../GameLogic/collision';
+import DodgeBall from './dodgeball';
+import BounceBall from './bounceball';
+import Coin from './coin';
 export default class Game{
     constructor(canvas, ctx){
 
@@ -11,16 +14,16 @@ export default class Game{
         this.width = canvas.width;
         this.height = canvas.height;
         this.player = new Player(ctx);
+        this.score = 0;
+        const ball = new DodgeBall(ctx);
+        const bounce = new BounceBall(ctx);
         //
         //canvas square cells
         this.cellArea = 20;
         this.cellsX = 540 / this.cellArea;
         this.cellsY = 540 / this.cellArea;
-
-        this.grid = this.buildGrid();
-        console.log(this.grid)
-        this.populateGrid();
-
+        this.money = new Coin(ctx);
+        this.entities = [ball, bounce, this.money];
         //
         //gravity variables
         this.gravx = 0.0;
@@ -30,6 +33,7 @@ export default class Game{
         //gravity control abilities
         this.canFlip = true;
         this.rotateStep = 0;
+        
 
 
         this.keyDownHandler = this.keyDownHandler.bind(this);
@@ -38,64 +42,20 @@ export default class Game{
 
     }
 
-    buildGrid(){
-        let grid = new Array(this.cellsX);
-        for (let i = 0; i < grid.length; i++){
-            grid[i] = new Array(this.cellsY);
-        }
-        return grid
-    }
-
-    placePlayerOnGrid(){
-        //round to the nearest 20
-        let xCoord = Math.ceil((Math.round(this.player.x)-10) / 20) * 20
-        let yCoord = Math.ceil((Math.round(this.player.y)-10) / 20) * 20
-        //convert from rounded number to array index
-        let x = (xCoord / 20) - 1
-        let y = (yCoord / 20) - 1
-        //place on game grid, have player track its own position
-        this.player.xcoord = x;
-        this.player.ycoord = y;
-
-    }
-
-
-    populateGrid(){
-        let row;
-
-        for( let i = 0; i < this.grid.length; i++){
-            row = this.grid[i] 
-            for( let j = 0; j < this.grid.length; j++){
-
-                switch((i * j) % 26){
-                    case 0:
-                        this.grid[i][j] =  new Wall(this.ctx, (20 * (j + 1)) + 10, (20 * (i + 1)) + 10);
-                        break;
-                    case 26:
-                        this.grid[i][j] = new Wall(this.ctx, (20 * (j + 1)) + 30, (20 * (i + 1)) + 40); 
-                        break;  
-
-                }
-            }
-        }
-    }
+   
     keyDownHandler(e){
         if(e.key == "Right" || e.key == "ArrowRight" || e.key == "d" || e.key == "D"){
             this.player.keyRight = 1;
         } else if (e.key == "Left" || e.key == "ArrowLeft" || e.key == "a" || e.key == "A"){
             this.player.keyLeft = 1;
-        } else if (e.key == "Spacebar" || e.key == " "){
+        } else if (e.key == "Spacebar" || e.key == " " || e.key == "Up" || e.key == "ArrowUp" || e.key == "w" || e.key == "W") {
             this.player.keyJump = 1;
-        } else if (e.key == "p" || e.key == "P") {
-            console.log(this.player.xcoord);
-            console.log(this.player.ycoord);
-            console.log(this.grid);
         } else if (e.key == "5"){
             var debug = () =>{
                 debugger
                 console.log("*screams internally*")
             }
-            debug();
+            debug.call(this);
         }
         
     }
@@ -117,7 +77,7 @@ export default class Game{
             this.player.keyRight = 0;
         } else if (e.key == "Left" || e.key == "ArrowLeft" || e.key == "a" || e.key == "A") {
             this.player.keyLeft = 0;
-        } else if (e.key == "Spacebar" || e.key == " "){
+        } else if (e.key == "Spacebar" || e.key == " " || e.key == "Up" || e.key == "ArrowUp" || e.key == "w" || e.key == "W"){
             this.player.keyJump = 0;
         } else if (this.canFlip){
 
@@ -133,25 +93,55 @@ export default class Game{
                 this.canFlip = false;
                 gravFlipUp.call(this);
                 rotate.call(this, 180);
+            } else if (e.key == "Down" || e.key == "ArrowDown" || e.key == "s" || e.key == "S"){
+                if (this.gravDirection === 0) {
+                    this.player.vsp += 25
+                } if (this.gravDirection === 2){
+                    this.player.vsp -= 25
+                } if (this.gravDirection === 3){
+                    this.player.hsp -= 25
+                } if (this.gravDirection === 1){
+                    this.player.hsp += 25
+                }
             }
         } 
 
     }
+
+
     
     addListeners() {
         document.addEventListener("keydown", this.keyDownHandler)
         document.addEventListener("keyup", this.keyUpHandler)
     }
     
+    
     draw(){
         const grav = {x: this.gravx, y: this.gravy, direct: this.gravDirection};
         this.ctx.fillStyle = "black";
-        this.ctx.fillRect(50, 50, 500, 500);
-        this.drawGrid();
+        this.ctx.fillRect(50, 50, 600, 600);
         this.player.draw(grav);
-        this.placePlayerOnGrid();
 
-        
+        this.entities.forEach( (thing, i) => {
+            if (thing instanceof Coin){
+                if(collisionBallCheck(this.player, thing)){
+                    this.entities = this.entities.slice(0,i).concat(this.entities.slice(i+1));
+                    this.entities.push(new Coin(this.ctx));
+                    this.score += 1;
+                    console.log(this.score);
+                }
+                 
+            } else {
+                if(collisionBallCheck(this.player, thing)){
+                    alert("you Lose")
+                    document.location.reload(true)
+                }
+
+            }
+            thing.draw(grav)
+
+        });
+    
 
     }
 

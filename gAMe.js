@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     let game = new Game(canvas, ctx);
 
     const playGame = setInterval( () => {
+ 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.draw()
     },15)
