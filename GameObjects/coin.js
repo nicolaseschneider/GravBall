@@ -21,7 +21,7 @@ export default class Coin{
     }
 
     buildSpark(){
-        if (this.frameindex % 7 === 0){
+        if (this.frameindex % 10    === 0){
             this.xSpark = Math.floor(Math.random() * 17) + 1;
             this.xSpark *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
             this.ySpark = Math.floor(Math.random() * 17) + 1;
@@ -71,9 +71,9 @@ export default class Coin{
         this.ctx.lineTo(cx, cy - 5);
         this.ctx.closePath();
         this.ctx.lineWidth = 1;
-        this.ctx.strokeStyle = "white";
+        this.ctx.strokeStyle = "black";
         this.ctx.stroke();
-        this.ctx.fillStyle = shade;
+        this.ctx.fillStyle = "goldenrod";
         this.ctx.fill();
     }
 }

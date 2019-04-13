@@ -1,6 +1,6 @@
 import { onGround } from '../GameLogic/on_ground';
 export default class BounceBall {
-    constructor(ctx) {
+    constructor(ctx,x,y) {
         //
         //visual context
         this.ctx = ctx
@@ -15,11 +15,15 @@ export default class BounceBall {
         this.radius = 20;
         //
         //variables
+        let deltaX = Math.floor(Math.random() * 6) + 1;
+        deltaX *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+        let deltaY = Math.floor(Math.random() * 6) + 1;
+        deltaY *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
 
-        this.hsp = 1;
-        this.vsp = 0;
-        this.x = Math.floor(Math.random() * 300) + 200;
-        this.y = Math.floor(Math.random() * 300) + 200;
+        this.hsp = deltaX;
+        this.vsp = deltaY;
+        this.x = x;
+        this.y = y;
         this.keyJump = 1;
 
     }
@@ -28,7 +32,7 @@ export default class BounceBall {
         
             this.hsp += grav.x * this.gravityCoef;
             this.vsp += grav.y * this.gravityCoef;
-      
+
 
         if (this.x + this.hsp <= 70 || this.x + this.hsp >= 630) {
             while (this.x + Math.sign(this.hsp) < 70 && this.x + Math.sign(this.hsp) > 630) {
@@ -56,14 +60,16 @@ export default class BounceBall {
         }
         this.x += this.hsp;
         this.y += this.vsp;
+
     }
     draw(grav) {
         this.physics(grav)
         this.ctx.beginPath();
-        this.ctx.fillStyle = "#33ccff";
+        this.ctx.fillStyle = "#0000ff";
         this.ctx.arc(this.x, this.y, 20, 0, 2 * Math.PI);
         this.ctx.fill();
-        this.ctx.strokeStyle = "#33ccff";
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeStyle = "rgba(0,0,0,1)";
         this.ctx.stroke();
         this.ctx.closePath();
     }

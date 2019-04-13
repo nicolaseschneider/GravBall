@@ -1,29 +1,25 @@
 import Player from './player';
-import Wall from './wall';
 import {gravFlipLeft, gravFlipRight, gravFlipUp} from '../GameLogic/grav_flip';
 import { rotate } from '../GameLogic/canvas_rotation';
-import { collisionCheck, collisionBallCheck } from '../GameLogic/collision';
-import DodgeBall from './dodgeball';
-import BounceBall from './bounceball';
+import { collisionBallCheck } from '../GameLogic/collision';
+import Spawner from './spawner';
 import Coin from './coin';
 export default class Game{
     constructor(canvas, ctx){
-
+        this.started = false;
         this.canvas = canvas;
         this.ctx = ctx;
         this.width = canvas.width;
         this.height = canvas.height;
         this.player = new Player(ctx);
         this.score = 0;
-        const ball = new DodgeBall(ctx);
-        const bounce = new BounceBall(ctx);
         //
         //canvas square cells
         this.cellArea = 20;
         this.cellsX = 540 / this.cellArea;
         this.cellsY = 540 / this.cellArea;
         this.money = new Coin(ctx);
-        this.entities = [ball, bounce, this.money];
+        this.entities = [this.money];
         //
         //gravity variables
         this.gravx = 0.0;
@@ -60,18 +56,7 @@ export default class Game{
         
     }
 
-    drawGrid(){
-        let row;
-        for (let i = 0; i < this.grid.length; i++) {
-            row = this.grid[i]
-            for (let j = 0; j < row.length; j++) {
-                if (this.grid[i][j] instanceof Wall){
-                    this.grid[i][j].draw();
-                }
-            }
-        }
 
-    }
     keyUpHandler(e){
         if (e.key == "Right" || e.key == "ArrowRight" || e.key == "d" || e.key == "D") {
             this.player.keyRight = 0;
@@ -107,8 +92,17 @@ export default class Game{
         } 
 
     }
+    endTutorial(){
+        this.entities.unshift(new Spawner(this.ctx))
+    }
 
+    activateSpawner(spawner, i){
+        spawner.active = true;
+        setTimeout( ()=>{
+            this.entities[i] = spawner.enemy
+        }, 2000)
 
+    }
     
     addListeners() {
         document.addEventListener("keydown", this.keyDownHandler)
@@ -118,7 +112,7 @@ export default class Game{
     
     draw(){
         const grav = {x: this.gravx, y: this.gravy, direct: this.gravDirection};
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "#efefef";
         this.ctx.fillRect(50, 50, 600, 600);
         this.player.draw(grav);
 
@@ -128,12 +122,15 @@ export default class Game{
                     this.entities = this.entities.slice(0,i).concat(this.entities.slice(i+1));
                     this.entities.push(new Coin(this.ctx));
                     this.score += 1;
-                    console.log(this.score);
+                    document.getElementById("score-card").innerHTML = this.score
                 }
                  
+            } else if(thing instanceof Spawner){
+                if(!thing.active && this.activateSpawner(thing, i)){}
             } else {
-                if(collisionBallCheck(this.player, thing)){
-                    alert("you Lose")
+                if(collisionBallCheck(this.player, thing) && !this.lose){
+                    alert(`you lose! final score: ${this.score}`)
+                    this.lose = true;
                     document.location.reload(true)
                 }
 

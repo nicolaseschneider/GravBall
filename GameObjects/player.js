@@ -36,8 +36,11 @@ export default class Player {
         
         //Draw player at updated position
         this.ctx.beginPath();
-        this.ctx.fillStyle = "#66ff66";
+        this.ctx.fillStyle = "black";
         this.ctx.fillRect(this.x, this.y, 20, 20)
+        this.ctx.fillStyle = "#006600";
+        this.ctx.fillRect(this.x+1, this.y+1, 18, 18)
+      
         this.ctx.closePath();
 
 

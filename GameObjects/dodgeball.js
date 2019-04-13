@@ -1,6 +1,6 @@
 import movementPhysics from '../GameLogic/physics_movement';
 export default class DodgeBall {
-    constructor(ctx) {
+    constructor(ctx,x,y) {
         //
         //visual context
         this.ctx = ctx
@@ -9,11 +9,14 @@ export default class DodgeBall {
         this.radius = 20;
         //
         //variables
-
-        this.hsp = -4;
-        this.vsp = -9;
-        this.x = Math.floor(Math.random() * 200) + 300;
-        this.y = Math.floor(Math.random() * 400) + 100
+        let deltaX = Math.floor(Math.random() * 6) + 1;
+        deltaX *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+        let deltaY = Math.floor(Math.random() * 6) + 1;
+        deltaY *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+        this.hsp = deltaX;
+        this.vsp = deltaY;
+        this.x = x;
+        this.y = y;
         this.keyJump = 0;
 
     }
@@ -52,7 +55,8 @@ export default class DodgeBall {
         this.ctx.fillStyle = "#991f00"
         this.ctx.arc(this.x, this.y, 20, 0, 2* Math.PI);
         this.ctx.fill();
-        this.ctx.strokeStyle = "#991f00";
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeStyle = "rgba(0,0,0,0.7)";
         this.ctx.stroke();
         this.ctx.closePath();
     }

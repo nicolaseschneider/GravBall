@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
  
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.draw()
+        if (game.started === false){
+            game.started = true;
+            setTimeout( ()=>{
+                game.endTutorial();
+            }, 5000)
+        }
     },15)
 
 })
