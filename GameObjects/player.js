@@ -8,9 +8,9 @@ export default class Player {
         this.ctx = ctx
         //
         //constants
-        this.gravityCoef = 0.6;
-        this.moveSpeed = 2;
-        this.jumpSpeed = 18;
+        this.gravityCoef = 0.8;
+        this.moveSpeed = 1.75;
+        this.jumpSpeed = 20.5;
         this.hp = 1;
         this.width = 20;
         this.height = 20;
@@ -36,10 +36,23 @@ export default class Player {
         
         //Draw player at updated position
         this.ctx.beginPath();
+
         this.ctx.fillStyle = "black";
         this.ctx.fillRect(this.x, this.y, 20, 20)
-        this.ctx.fillStyle = "#006600";
-        this.ctx.fillRect(this.x+1, this.y+1, 18, 18)
+        
+
+
+        this.ctx.fillStyle = "blue";
+        this.ctx.fillRect(this.x+10, this.y+10, 10, 10)
+
+        this.ctx.fillStyle = "red";
+        this.ctx.fillRect(this.x, this.y, 10, 10)
+        this.ctx.fillStyle = "black";
+        this.ctx.fillRect(this.x+10, this.y, 10, 10)
+        this.ctx.fillStyle = "purple";
+        this.ctx.fillRect(this.x, this.y+10, 10, 10)
+
+
       
         this.ctx.closePath();
 

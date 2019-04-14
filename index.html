@@ -8,25 +8,19 @@
     <style>
         * {
             padding: 0;
-            margin: 0;
+
             font-family: 'Orbitron', sans-serif;
             background: black;
-            color: white;
+  
             text-align: center;
         }
-        h1{
 
-            margin:0 auto;
-            margin-bottom: 25px;
-            margin-top: 25px;
-            margin-right: 3%;
-        }
 
 
         canvas {
             display: block;
 
-            border: 3px solid red;
+   
             clip-path: polygon(
                 0% 5%,     /* top left */
                 5% 0%,     /* top left */
@@ -39,23 +33,48 @@
             );
             margin: 0;
             margin-right: 12%;
+            margin-top: 5%;
         }
         #score-card{
             margin-right: 10px;
-      
+            color: white;
         }
         .game{
             display:flex;  
             justify-content: space-between;
+            height: 100%;
 
         }
         .game > div{
             min-width: 300px;;
+            min-height: 100%;
+             margin-left: 45px; 
         }
 
-        #instructions{
+        #Instructions{
+            margin-top: 30%;
+            margin-left: 45px;
             word-wrap: normal;
-            max-width: 300px;
+        }
+        #playButton{
+            clip-path: polygon(
+                0% 3%,     /* top left */
+                3% 0%,     /* top left */
+                97% 0%,    /* top right */
+                100% 3%,   /* top right */
+                100% 97%,  /* bottom right */
+                97% 100%,  /* bottom right */
+                3% 100%,   /* bottom left */
+                0% 97%      /* bottom left */
+            );
+            border: white 3px solid;
+            
+            position: fixed;
+            left: 40%;
+            top: 50%;
+            width: 400px;
+            height: 50px;
+            color: white;
         }
         
     </style>
@@ -63,22 +82,35 @@
 </head>
 
 <body>
-    <h1>Grav Ball</h1>
+
     <div class="game">
         <div><p id="Instructions">
-            Welcome to Grav Ball!<br>
-            The Objective is simple: Collect as many coins as possible<br>
+            <p id='instruct1'>
+                Welcome to Grav Ball!<br>
+                The Objective is simple: Collect as many coins as possible<br>
+            </p>
             <br>
-            Move and jump with the arrow keys or WASD<br>
-            Rotate Gravity with Q and E<br>
-            If you get hit, its game over!<br>
+            <p id='instruct2'>
+                Move and jump with the arrow keys or WASD<br>
+                Rotate Gravity with Q and E<br>
+                If you get hit, its game over!<br>
+            </p>
+            <br>
+            <p id='instruct3'>
+            Collect the yellow coins to increase your score!
+            </p>
 
-            Good Luck! You're going to need it...
+            <br>
+            <br>
+            <p id="instruct4">
+                Good Luck! You're going to need it...
+
+            </p>
         
         
         </p></div>
         <canvas id="Canvas" width="700" height="700"></canvas>
-        <div><h2 id="score-card">0</h2></div>
+        <div><h2 id="score-card"></h2></div>
     </div>
  
 </body>

@@ -13,14 +13,12 @@ export default class Game{
         this.height = canvas.height;
         this.player = new Player(ctx);
         this.score = 0;
+        this.menu = 1;
         //
-        //canvas square cells
-        this.cellArea = 20;
-        this.cellsX = 540 / this.cellArea;
-        this.cellsY = 540 / this.cellArea;
+        //entities
         this.money = new Coin(ctx);
         this.entities = [this.money];
-        //
+        //  
         //gravity variables
         this.gravx = 0.0;
         this.gravy = 1.0;
@@ -29,13 +27,16 @@ export default class Game{
         //gravity control abilities
         this.canFlip = true;
         this.rotateStep = 0;
-        
-
-
+  
+        this.frameIDX = 0;
         this.keyDownHandler = this.keyDownHandler.bind(this);
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.addListeners();
 
+    }
+
+    Opacity(){
+        return Math.min(this.frameIDX * 0.005, 1)
     }
 
    
@@ -44,7 +45,7 @@ export default class Game{
             this.player.keyRight = 1;
         } else if (e.key == "Left" || e.key == "ArrowLeft" || e.key == "a" || e.key == "A"){
             this.player.keyLeft = 1;
-        } else if (e.key == "Spacebar" || e.key == " " || e.key == "Up" || e.key == "ArrowUp" || e.key == "w" || e.key == "W") {
+        } else if (e.key === ' ' || e.key === 'Spacebar' || e.key == "Up" || e.key == "ArrowUp" || e.key == "w" || e.key == "W") {
             this.player.keyJump = 1;
         } else if (e.key == "5"){
             var debug = () =>{
@@ -98,8 +99,12 @@ export default class Game{
 
     activateSpawner(spawner, i){
         spawner.active = true;
+
         setTimeout( ()=>{
             this.entities[i] = spawner.enemy
+            setTimeout( ()=>{
+                this.entities.unshift(new Spawner(this.ctx))
+            }, 7000)
         }, 2000)
 
     }
@@ -111,35 +116,56 @@ export default class Game{
     
     
     draw(){
-        const grav = {x: this.gravx, y: this.gravy, direct: this.gravDirection};
-        this.ctx.fillStyle = "#efefef";
-        this.ctx.fillRect(50, 50, 600, 600);
-        this.player.draw(grav);
+        switch(this.menu){
+            case 0:
+                const grav = {x: this.gravx, y: this.gravy, direct: this.gravDirection};
+                this.ctx.fillStyle = "#efefef";
+                this.ctx.fillRect(50, 50, 600, 600);
+                
+                document.getElementById("score-card").innerHTML = this.score
+                
+                this.entities.forEach( (thing, i) => {
+                    if (thing instanceof Coin){
+                        if(collisionBallCheck(this.player, thing)){
+                            this.entities = this.entities.slice(0,i).concat(this.entities.slice(i+1));
+                            this.entities.push(new Coin(this.ctx));
+                            this.score += 1;
+                            document.getElementById("score-card").innerHTML = this.score
+                        }
+                        
+                    } else if(thing instanceof Spawner){
+                        if(!thing.active && this.activateSpawner(thing, i)){}
+                    } else {
+                        if(collisionBallCheck(this.player, thing) && !this.lose){
+                            alert(`you lose! final score: ${this.score}`)
+                            this.lose = true;
+                            document.location.reload(true)
+                        }
+                        
+                    }
+                    thing.draw(grav)
+                    
+                }); 
+                this.player.draw(grav);
+                break;
+            case 1: 
+                this.ctx.beginPath();
+     
+                this.ctx.fillStyle = "black";
+                this.ctx.fillRect(50, 50, 600, 600);
+                this.ctx.font = "48px Orbitron";
+                this.ctx.strokeStyle = `rgba(255,255,255,${this.Opacity()})`
+                this.ctx.lineWidth = 3;
+                this.ctx.textAlign = "center"
+                this.ctx.strokeText("Grav Ball", this.canvas.width/2, this.canvas.width/2 )
 
-        this.entities.forEach( (thing, i) => {
-            if (thing instanceof Coin){
-                if(collisionBallCheck(this.player, thing)){
-                    this.entities = this.entities.slice(0,i).concat(this.entities.slice(i+1));
-                    this.entities.push(new Coin(this.ctx));
-                    this.score += 1;
-                    document.getElementById("score-card").innerHTML = this.score
-                }
-                 
-            } else if(thing instanceof Spawner){
-                if(!thing.active && this.activateSpawner(thing, i)){}
-            } else {
-                if(collisionBallCheck(this.player, thing) && !this.lose){
-                    alert(`you lose! final score: ${this.score}`)
-                    this.lose = true;
-                    document.location.reload(true)
-                }
+                this.ctx.closePath();
+                break;
 
-            }
-            thing.draw(grav)
-
-        });
-    
-
+            
+            
+        }
+        this.frameIDX += 1;
+        
     }
-
 }

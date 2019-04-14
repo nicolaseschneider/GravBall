@@ -38,6 +38,7 @@ export default class Coin{
         this.ctx.fillStyle = "gold"
         this.ctx.arc(this.x, this.y, 15, 3, 4 * Math.PI);
         this.ctx.fill();
+        this.ctx.lineWidth = 2;
         this.ctx.strokeStyle = "goldenrod";
         this.ctx.stroke();
         this.ctx.closePath();
