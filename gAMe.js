@@ -4,82 +4,64 @@ import { fadeIn, elementFadeIn, wavyGradient, rotateGradient } from './GameLogic
 
 document.addEventListener('DOMContentLoaded', (e) => {
   
-   
-    const firebaseConfig = {
-        apiKey: "AIzaSyDMyAUaLi0HoaZsTsfFUJ7v0KjPSM5iERc",
-        authDomain: "heli-escape.firebaseapp.com",
-        databaseURL: "https://heli-escape.firebaseio.com",
-        projectId: "heli-escape",
-        storageBucket: "heli-escape.appspot.com",
-        messagingSenderId: "83868845549"
+
+    var config = {
+        apiKey: "AIzaSyD5da5VdY_xRMVKEMYthAGVmRiekALaEv4",
+    authDomain: "grav-ball-f2b73.firebaseapp.com",
+    databaseURL: "https://grav-ball-f2b73.firebaseio.com",
+    projectId: "grav-ball-f2b73",
+    storageBucket: "grav-ball-f2b73.appspot.com",
+    messagingSenderId: "373906891112"
     };
-    firebase.initializeApp(firebaseConfig);
-
+    firebase.initializeApp(config);
     const database = firebase.database();
-    const ref = database.ref('scores');
+    const ref = database.ref('scores')
 
-    const data = {
-        name: "$$ EASY MONEY $$",
-        score: 420420420
+    const saveScore = function(){
+        const newScore = {}
+        newScore.name = document.getElementById("name").value;
+        newScore.score = document.getElementById("score").value;
+        if (newScore.name){
+            ref.push(newScore);
+        }
+        document.getElementById('scoreList').style.display = "none"
+
     }
-    ref.push(data)
-//     var config = {
-//         apiKey: "AIzaSyD5da5VdY_xRMVKEMYthAGVmRiekALaEv4",
-//     authDomain: "grav-ball-f2b73.firebaseapp.com",
-//     databaseURL: "https://grav-ball-f2b73.firebaseio.com",
-//     projectId: "grav-ball-f2b73",
-//     storageBucket: "grav-ball-f2b73.appspot.com",
-//     messagingSenderId: "373906891112"
-//     };
-//     firebase.initializeApp(config);
-//     const database = firebase.database();
-//     const ref = database.ref('scores')
-
-//     const saveScore = function(){
-//         const newScore = {}
-//         newScore.name = document.getElementById("name").value;
-//         newScore.score = document.getElementById("score").value;
-//         if (newScore.name){
-//             ref.push(newScore);
-//         }
-//         document.getElementById('scoreList').style.display = "none"
-
-//     }
-//     function errData (err) {
-//         console.log('Error!');
-//         console.log(err);
-//     };
-//     ref.once('value', gotData, errData)
+    function errData (err) {
+        console.log('Error!');
+        console.log(err);
+    };
+    ref.on('value', gotData, errData)
 
     
-//    function gotData (data){
-//         let scores = data.val();
-//         let scoreList = Object.values(scores);
+   function gotData (data){
+        let scores = data.val();
+        let scoreList = Object.values(scores);
 
-//         console.log(scoreList)
-//         scoreList.sort( (score1, score2) => {
-//             return score2.score - score1.score
+        console.log(scoreList)
+        scoreList.sort( (score1, score2) => {
+            return score2.score - score1.score
 
-//         })
+        })
 
-//         let highScoreListLeng = Math.min(scoreList.length, 10)
-//         const ul = document.getElementById("scoreList");
-//         let highScores = scoreList.slice(0,highScoreListLeng)
+        let highScoreListLeng = Math.min(scoreList.length, 10)
+        const ul = document.getElementById("scoreList");
+        let highScores = scoreList.slice(0,highScoreListLeng)
 
-//         for(let scoreIDX = 0; scoreIDX < highScores.length; scoreIDX++){
-//             if (highScores[scoreIDX].name && highScores[scoreIDX].score && !document.getElementById('9')){
+        for(let scoreIDX = 0; scoreIDX < highScores.length; scoreIDX++){
+            if (highScores[scoreIDX].name && highScores[scoreIDX].score && !document.getElementById('9')){
             
-//                 var name = highScores[scoreIDX].name;
-//                 var score = highScores[scoreIDX].score;
-//                 let li = document.createElement('li');
-//                 li.innerHTML = name + " :" + score;
-//                 li.id = scoreIDX
-//                 ul.appendChild(li);
-//             }
-//         }
+                var name = highScores[scoreIDX].name;
+                var score = highScores[scoreIDX].score;
+                let li = document.createElement('li');
+                li.innerHTML = name + " :" + score;
+                li.id = scoreIDX
+                ul.appendChild(li);
+            }
+        }
 
 
-//     };
+    };
 
     
     var canvas = document.getElementById("Canvas");
