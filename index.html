@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <meta charset="utf-8" />
     <title>Grav Ball</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet">
@@ -11,16 +14,18 @@
 
             font-family: 'Orbitron', sans-serif;
             background: black;
-  
+
             text-align: center;
         }
-
-
-
+        a{font-size: 45px; margin: 10px;color: inherit;}
+        i{color:white;}
+        #highScores > h1{
+            min-width: 10rem;
+            font-size: 24px;
+        }
         canvas {
             display: block;
-
-   
+            
             clip-path: polygon(
                 0% 5%,     /* top left */
                 5% 0%,     /* top left */
@@ -32,12 +37,26 @@
                 0% 95%      /* bottom left */
             );
             margin: 0;
-            margin-right: 12%;
-            margin-top: 5%;
+            margin-right: 8vw;
+            margin-top: 5vh;
+            margin-left: 25px;
         }
         #score-card{
             margin-right: 10px;
-            color: white;
+            width: 100px;
+            
+        }
+        #score-container{
+            display:flex;
+            flex-direction: column;
+        }
+        li{
+            margin-top: 15px;
+            text-align: center;
+            color: black;
+            background: white;
+            padding: 5px;   
+            border-radius: 5px;
         }
         .game{
             display:flex;  
@@ -45,40 +64,62 @@
             height: 100%;
 
         }
+        form > h1{
+            padding 5px;
+        }
         .game > div{
             min-width: 300px;;
             min-height: 100%;
              margin-left: 45px; 
         }
-
-        #Instructions{
-            margin-top: 30%;
-            margin-left: 45px;
-            word-wrap: normal;
-        }
-        #playButton{
-            clip-path: polygon(
-                0% 3%,     /* top left */
-                3% 0%,     /* top left */
-                97% 0%,    /* top right */
-                100% 3%,   /* top right */
-                100% 97%,  /* bottom right */
-                97% 100%,  /* bottom right */
-                3% 100%,   /* bottom left */
-                0% 97%      /* bottom left */
-            );
-            border: white 3px solid;
-            
-            position: fixed;
-            left: 40%;
-            top: 50%;
-            width: 400px;
-            height: 50px;
+        footer{
             color: white;
         }
+        form{
+            padding: 5px;
+            display: none; 
+            position: absolute;
+            flex-direction: column;
+            color: white;
+            top: 45%;
+            left: 43vw;
+            clip-path: polygon(
+                0% 5%,     /* top left */
+                5% 0%,     /* top left */
+                95% 0%,    /* top right */
+                100% 5%,   /* top right */
+                100% 95%,  /* bottom right */
+                95% 100%,  /* bottom right */
+                5% 100%,   /* bottom left */
+                0% 95%      /* bottom left */
+            );
+        }
+        input, button{background: white;
+        color: black;
+        border-radius: 5px;}
+        #Instructions{
+            margin-top: 30%;
+            margin-left: 35px;
+            word-wrap: normal;
+            margin-right: 20px;ß
+        }
+        #playButton{
+           display: hidden;
+           visibility: none;
+           opacity: 0;
+        }
+        .scorecontainer{
+            display:flex;
+            color:white;
+       
+        }
+        ul{list-style: none;}
         
     </style>
+
     <script src='bundle.js'></script>
+
+   
 </head>
 
 <body>
@@ -103,16 +144,46 @@
             <br>
             <br>
             <p id="instruct4">
-                Good Luck! You're going to need it...
+                Good Luck! You're going to need it... <br>
+                Press Space whenever you're ready to start!
 
             </p>
         
         
         </p></div>
         <canvas id="Canvas" width="700" height="700"></canvas>
-        <div><h2 id="score-card"></h2></div>
+        <div class="scorecontainer">
+            <h2 id="score-card">Score: --</h2>
+            <div id="highScores">
+                <h1>
+                    Top Ten Grav Ballas<br>
+                </h1>
+                <ul id="scoreList">
+
+                </ul>
+            </div>
+        </div>
     </div>
- 
+    <footer id="footer">
+        <p>Game concept and music by Nicolas Schneider</p>
+        <div>
+            <a  href="https://www.linkedin.com/in/nicolas-schneider-01/"><i id="icon3" class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/NicolasESchneider"><i id="icon" class="fab fa-github"></i></a>
+            <a><i id="icon2" class="fas fa-user-circle"></i></a>
+        </div>
+    </footer>
+
+    <form id="form">
+        <h1>
+            Submit Your Score
+        </h1>
+        <input id="name" type="text" placeholder="enter your name" />
+        <input id="score" readOnly/> 
+        <button id="submit">Submit Score</button>
+
+    
+    </form>
+   
 </body>
 
 </html>

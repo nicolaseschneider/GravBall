@@ -11,14 +11,14 @@ export default function(grav){
     //implement on ground collision
     if(onGround.bind(this, grav)()){
 
-        this.hsp *= 0.84;
-        this.vsp *= 0.84;
+        this.hsp *= 0.87;
+        this.vsp *= 0.87;
         this.hsp += -this.keyJump * this.jumpSpeed * grav.x;
         this.vsp += -this.keyJump * this.jumpSpeed * grav.y;
     } else {
         this.hsp += grav.x * this.gravityCoef;
         this.vsp += grav.y * this.gravityCoef;
-        moveacc *= 0.2;
+        moveacc *= 0.1;
     }
 
     this.hsp += moveacc * (1.0 - Math.abs(grav.x));

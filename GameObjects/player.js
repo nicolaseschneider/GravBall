@@ -41,16 +41,8 @@ export default class Player {
         this.ctx.fillRect(this.x, this.y, 20, 20)
         
 
-
-        this.ctx.fillStyle = "blue";
-        this.ctx.fillRect(this.x+10, this.y+10, 10, 10)
-
-        this.ctx.fillStyle = "red";
-        this.ctx.fillRect(this.x, this.y, 10, 10)
-        this.ctx.fillStyle = "black";
-        this.ctx.fillRect(this.x+10, this.y, 10, 10)
         this.ctx.fillStyle = "purple";
-        this.ctx.fillRect(this.x, this.y+10, 10, 10)
+        this.ctx.fillRect(this.x + 1, this.y+1, 18, 18)
 
 
       
