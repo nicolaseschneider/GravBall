@@ -4,7 +4,7 @@ import { fadeIn, elementFadeIn, wavyGradient, rotateGradient } from './GameLogic
 
 document.addEventListener('DOMContentLoaded', (e) => {
 
-
+    console.log("hi there")
 
     var config = {
         apiKey: "AIzaSyD5da5VdY_xRMVKEMYthAGVmRiekALaEv4",
@@ -36,10 +36,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 
     function gotData(data) {
+        
         let scores = data.val();
         let scoreList = Object.values(scores);
 
-        console.log(scoreList)
+   
         scoreList.sort((score1, score2) => {
             return score2.score - score1.score
 
@@ -101,6 +102,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     playButton.addEventListener("click", startGame)
 
     const playGame = setInterval(() => {
+
         let border = frame % 360;
         //fadeIn
         canvas.style.opacity = elementFadeIn(frame);
